@@ -1,0 +1,44 @@
+#include <stdio.h>
+
+#define MAXLENGTH 25
+#define IN 1  // inside a word
+#define OUT 0 // outside a word
+
+int main() {
+  int c;
+  int length_arr[MAXLENGTH + 1]; // creates an array
+  int state = IN;
+  int nc = 0; // new character
+
+  for (int i = 0; i <= MAXLENGTH; ++i) { // makes all indicies of the array 0
+    length_arr[i] = 0;
+  }
+
+  while ((c = getchar()) != EOF) { // inputing a character while not EOF
+    ++nc;                          // increments nc by one
+
+    if (c == ' ' || c == '\t' || c == '\n') {
+      state = OUT; // everytime a word is finished, state becomes OUT
+      --nc; // subtracts nc so that it doesnt count the blank/space/tab/newline
+    }
+
+    if (state == OUT) {
+      if (nc != 0 &&
+          nc <= MAXLENGTH) { // there is a word that is not longer than 25
+        ++length_arr[nc]; // adds one everytime there is a word of a certain length
+      }
+      state = IN;
+      nc = 0; // resets the word length count
+    }
+  }
+
+  for (int i = 1; i <= MAXLENGTH; ++i) {
+    printf("|%3d| ", i); // prints the (vertical?) header
+    for (int k = 0; k < length_arr[i]; ++k)
+      putchar('*'); // prints a star according the number in the index of the array
+
+    putchar('\n');
+  }
+
+  return 0;
+}
