@@ -1,0 +1,33 @@
+#include <stdio.h>
+
+#define MAX 122 // ASCII lowercase alphabet ending with z
+#define MIN 97  // beginning with a
+#define DIFF 32 // difference between lowercase and uppercase letters
+
+int main() {
+  int c;
+  int array[MAX - MIN]; // array
+
+  for (int i = MIN; i <= MAX; i++) {
+    array[i] = 0; // set all indicies of array to 0
+  }
+
+  while ((c = getchar()) != EOF) {
+    if (c >= MIN) { // checks if inputted character is a letter
+      ++array[c];   // adds one to the index of that letter
+    } else {
+      ++array[c + DIFF]; // adds DIFF so that only one array needs to be created
+                         // without separating uppercase and lowercase
+    }
+  }
+
+  for (int i = MIN; i <= MAX; i++) {
+    printf("|%c|", i - DIFF); // prints header
+    for (int k = 1; k <= array[i]; k++) {
+      putchar('*');
+    }
+    putchar('\n');
+  }
+
+  return 0;
+}
