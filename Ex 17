@@ -1,0 +1,38 @@
+#include <stdio.h>
+
+#define MAXLINE 1000
+#define MAXLENGTH 81
+
+int getstring(char line[], int max);
+
+int main() {
+  int length = 0;
+  char line[MAXLINE];
+
+  while ((length = getstring(line, MAXLINE)) > 0) {
+    if (length > MAXLENGTH) {
+      printf("%s\n", line); // only prints the inputted line if the line is
+                            // longer than 80 characters
+    }
+  }
+
+  return 0;
+}
+
+int getstring(char line[], int max) {
+  int i = 0;
+  int c = 0;
+
+  for (i = 0; ((c = getchar()) != EOF) && i < max - 1; ++i) {
+    line[i] = c; // puts the inputted character into the next array index while
+                 // not EOF and newline and less than the size of the array
+  }
+
+  if (c == '\n') {
+    line[i++] = c; // newline at end of line
+  }
+
+  line[i] = '\0'; // after newline
+
+  return i;
+}
