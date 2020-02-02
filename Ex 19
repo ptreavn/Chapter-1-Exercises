@@ -1,0 +1,58 @@
+#include <stdio.h>
+
+#define MAXLINE 1000
+
+int getstring(char line[], int max);
+void reverse(char line[]);
+
+int main(void) {
+  int length, i;
+  char line[MAXLINE], longest[MAXLINE];
+
+  while ((length = getstring(line, MAXLINE)) > 0) {
+    if (length > 0) { // there is a line
+      reverse(line);
+      printf("%s\n", line);
+    }
+  }
+
+  return 0;
+}
+
+int getstring(char line[], int max) {
+  int i, c;
+
+  for (i = 0; i < max - 1 && (c = getchar()) != EOF && c != '\n'; ++i) {
+    line[i] = c; // puts the inputted character into the next index of the array
+  }
+
+  if (c == '\n') {
+    line[i] = c;
+    ++i;
+  }
+
+  line[i] = '\0';
+  return i;
+}
+
+void reverse(char line[]) {
+  int i, k;
+  char temp;
+
+  for (k = 0; line[k] != '\0'; ++k) {
+    ; //
+  }
+  --k;
+
+  if (line[k] == '\n') {
+    line[k] = '\0';
+    --k;
+  }
+
+  for (i = 0; i < k; i++) {
+    temp = line[i];
+    line[i] = line[k];
+    line[k] = temp;
+    --k;
+  }
+}
