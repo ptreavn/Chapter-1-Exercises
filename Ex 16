@@ -1,0 +1,59 @@
+#include <stdio.h>
+#define MAXLINE 1000
+
+int getstring(char line[], int maxline); // prototype
+
+void copy(char to[], char from[]);
+
+int main() {
+  int length;
+  int max = 0;
+  char line[MAXLINE]; // arrary
+  char longest[MAXLINE];
+
+  while ((length = getstring(line, MAXLINE)) > 0) { // while there is a line
+    printf(
+        "%d:%s", length,
+        line); // prints how many characters there are, then the inputted line
+
+    if (length > max) { // if there is a new line that is larger than max
+      max = length;     // make max the new size of that line
+      copy(longest, line);
+    }
+  }
+
+  if (max > 0) {
+    printf("%s", longest); // prints the longest line
+  }
+
+  return 0;
+}
+
+int getstring(char s[], int lim) {
+  int c, i, k;
+
+  for (i = 0, k = 0; (c = getchar()) != EOF && c != '\n';
+       i++) { // continues reading in line until an EOF or a newline
+    if (i < (lim - 1)) {
+      s[k++] = c; // adds the character to the next index of the array
+    }
+  }
+
+  if (c == '\n') {
+    if (i <= lim - 1) {
+      s[k++] = c;
+    }
+  }
+
+  s[k] = '\0'; // makes the very end of the inputted line a 0
+
+  return i;
+}
+
+void copy(char to[], char from[]) {
+  int i = 0;
+
+  while ((to[i] = from[i]) != '\0') {
+    i++;
+  }
+}
